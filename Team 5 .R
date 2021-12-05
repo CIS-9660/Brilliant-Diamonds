@@ -70,3 +70,6 @@ b_diamond[,7]=as.factor(factor(b_diamond[,7]))
 b_diamond[,8]=as.factor(factor(b_diamond[,8]))
 pairs(~price+color+clarity+cut+type+report+shape+carat,b_diamond)
 pairs(b_diamond)
+
+
+# choi testing 
