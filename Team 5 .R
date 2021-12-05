@@ -73,4 +73,4 @@ pairs(b_diamond)
 
 
 # choi testing 
-# Luke testing 12/4/21 10:22 PM 
+# Luke testing 12/4/21 10:22 PM  - video demonstrations only
