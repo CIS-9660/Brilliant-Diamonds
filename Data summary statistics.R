@@ -51,6 +51,30 @@ b_diamond %>%
   #ggplot(aes(clarity, m)) +
   #geom_point()
 
+# Shape 
+b_diamond %>%
+  group_by(shape) %>%
+  summarise(m = mean(price)) %>%
+  ungroup() %>%
+  ggplot(aes(shape, m)) +
+  geom_bar(stat = "identity")
+
+# Reports 
+b_diamond %>%
+  group_by(report) %>%
+  summarise(m = mean(price)) %>%
+  ungroup() %>%
+  ggplot(aes(report, m)) +
+  geom_bar(stat = "identity")
+
+# Type - Lab vs. natural  
+b_diamond %>%
+  group_by(type) %>%
+  summarise(m = mean(price)) %>%
+  ungroup() %>%
+  ggplot(aes(type, m)) +
+  geom_bar(stat = "identity")
+  
 #bar graph based on different variables with mean price 
 b_diamond %>%
   group_by(color, cut) %>%
@@ -58,6 +82,7 @@ b_diamond %>%
   ggplot(aes(color, m, group = cut, fill = cut)) +
   geom_bar(stat = "identity")
 #https://bookdown.org/yih_huynh/Guide-to-R-Book/bar-graph.html
+
 
 #scaling to make relationship between carat and price more clear
 ggplot(b_diamond, aes(carat, price)) + geom_bin2d() + scale_x_log10() + 
