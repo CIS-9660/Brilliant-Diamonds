@@ -15,6 +15,7 @@ Diamond$type=as.factor(type)
 
 # tree method with validation set approach
 set.seed(1)
+train = sample(1:nrow(Diamond), nrow(Diamond)/2)
 tree.diamond=tree(price~shape+carat+cut+color+clarity+report+type,Diamond,subset=train)
 summary(tree.diamond)
 plot(tree.diamond)
