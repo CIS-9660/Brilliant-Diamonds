@@ -19,43 +19,6 @@ summary(lm.fit)
 lm.fit1=update(lm.fit,~.-cut)
 summary(lm.fit1)
 
-#Compare relationship between 4C's and Diamond type (lab/natural) to see how it affects y variable price
-b_diamond %>%
-  group_by(cut) %>%
-  summarise(n=n(), 
-            mean= mean(price), 
-            median=median(price), 
-            Q1= quantile(price,0.25),
-            Q3= quantile(price,0.75))
-b_diamond %>%
-  group_by(clarity) %>%
-  summarise(n=n(), 
-            mean= mean(price), 
-            median=median(price), 
-            Q1= quantile(price,0.25),
-            Q3= quantile(price,0.75))
-b_diamond %>%
-  group_by(carat) %>%
-  summarise(n=n(), 
-            mean= mean(price), 
-            median=median(price), 
-            Q1= quantile(price,0.25),
-            Q3= quantile(price,0.75))
-b_diamond %>%
-  group_by(color) %>%
-  summarise(n=n(), 
-            mean= mean(price), 
-            median=median(price), 
-            Q1= quantile(price,0.25),
-            Q3= quantile(price,0.75))
-b_diamond %>%
-  group_by(type) %>%
-  summarise(n=n(), 
-            mean= mean(price), 
-            median=median(price), 
-            Q1= quantile(price,0.25),
-            Q3= quantile(price,0.75))
-
 #changed qualitative variables to quantitative using as.factor method 
 b_diamond[,1]=as.factor(factor(b_diamond[,1]))
 b_diamond[,4]=as.factor(factor(b_diamond[,4]))
