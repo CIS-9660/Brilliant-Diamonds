@@ -88,6 +88,11 @@ mean((yhat.bag-diamond.test)^2)
 bag.diamond=randomForest(price~.,data=b_diamond,subset=train, mtry=7/3,ntree=100)
 yhat.bag = predict(bag.diamond,newdata=b_diamond[-train,])
 mean((yhat.bag-diamond.test)^2)
+#importance of bag.diamond
+importance(bag.diamond)
+# plot the importance of each variable
+varImpPlot(bag.diamond)
+
 # The MSE with a smaller number of trees is larger at 23,975,491. Therefore, we will keep the larger number of trees
 # Random Forest
 # By default, 1) RandomForest () uses p/3 variables when building a random forest of regression trees, and 2) use square root (p) variables when building a random forest of classification trees. Here we
