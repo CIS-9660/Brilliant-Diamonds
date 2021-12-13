@@ -87,11 +87,11 @@ importance(bag.diamond)
 varImpPlot(bag.diamond)
 # The test set MSE associated with the bagged regression tree is 17,538,424 smaller han the one 35M using an optimally-pruned single tree.
 # Bagging improved the prediction accuracy than a single tree
-# We change dthe number of trees grown by randomForest() using the ntree argument
+# We changed the number of trees grown by randomForest() using the ntree argument
 # E.g. change the number of trees to 100 (by multiples of 25)
-rf.diamond100=randomForest(price~.,data=b_diamond,subset=train, mtry=7/3,ntree=100,importance=TRUE)
-yhat.bag = predict(rf.diamond100,newdata=b_diamond[-train,])
-mean((yhat.bag-diamond.test)^2)
+bag.diamond100=randomForest(price~.,data=b_diamond,subset=train, mtry=7,ntree=100,importance=TRUE)
+yhat.bag100 = predict(bag.diamond100,newdata=b_diamond[-train,])
+mean((yhat.bag100-diamond.test)^2)
 
 # The MSE with a smaller number of trees is larger at 23,975,491. Therefore, we will keep the larger number of trees
 # Random Forest
