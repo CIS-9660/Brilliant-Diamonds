@@ -136,10 +136,8 @@ cv.diamond
 plot(cv.diamond$size,cv.diamond$dev,type='b')
 # the best tree size is 10, so we don't need to prune the tree
 
-
 # use unpruned tree to make prediction on the test data
 yhat=predict(tree.diamond,newdata=b_diamond[-train,])
-
 
 # true value of DV on the test data
 diamond.test=b_diamond[-train,"price"]
@@ -147,7 +145,6 @@ plot(yhat,diamond.test)
 abline(0,1)
 #MSE (Mean of Squared Errors)
 mean((yhat-diamond.test)^2)
-
 
 # 3. RANDOM FORESTS -------------------------------------------------------------------------------------------------------------------------------
 
