@@ -104,21 +104,48 @@ summary(lm.fit2) # RSE: 7243 on 119279 (=0.0607) Adjusted R-squared:  0.3685
 
 # 2. TREE-BASED METHODS (REGRESSION TREE) ---------------------------------------------------------------------------------------------------------
 
+# The tree library is used to construct Regression Decision Tree
+library(tree)
+
+#converts quantitative variables into qualitative variables
+b_diamond$shape=as.factor(b_diamond$shape)
+b_diamond$cut=as.factor(cut)
+b_diamond$color=as.factor(color)
+b_diamond$clarity=as.factor(clarity)
+b_diamond$report=as.factor(report)
+b_diamond$type=as.factor(type)
+
+# tree method with validation set approach
+# Use set.seed(1) and train=sample() function to create a training set containing half of the observations are selected as the training dataset while half of observations are treated as the test dataset.
+set.seed(1)
+train = sample(1:nrow(b_diamond), nrow(b_diamond)/2)
+# Use the tree() function to fit a regression tree.
+tree.diamond=tree(price~shape+carat+cut+color+clarity+report+type,b_diamond,subset=train)
+# Use the summary () function to produce summary statistics about the tree.
+summary(tree.diamond)
+# Use the plot() function to display the tree structure,and then use the text() function to display the node labels
+plot(tree.diamond)
+text(tree.diamond,pretty=0)
+# variables actually used in tree construction are "carat"   "report"  "clarity"
+
+# use cross validation to check if the tree needs to be pruned
+# Use the cv,tree() function to the training set in order to determine the optimal tree size.
+cv.diamond=cv.tree(tree.diamond)
+cv.diamond
+plot(cv.diamond$size,cv.diamond$dev,type='b')
+# the best tree size is 10, so we don't need to prune the tree
 
 
+# use unpruned tree to make prediction on the test data
+yhat=predict(tree.diamond,newdata=b_diamond[-train,])
 
 
-
-
-
-
-
-
-
-
-
-
-
+# true value of DV on the test data
+diamond.test=b_diamond[-train,"price"]
+plot(yhat,diamond.test)
+abline(0,1)
+#MSE (Mean of Squared Errors)
+mean((yhat-diamond.test)^2)
 
 
 # 3. RANDOM FORESTS -------------------------------------------------------------------------------------------------------------------------------
