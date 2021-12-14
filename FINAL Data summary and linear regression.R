@@ -108,14 +108,6 @@ summary(lm.fit2) # RSE: 7243 on 119279 (=0.0607) Adjusted R-squared:  0.3685
 # The tree library is used to construct Regression Decision Tree
 library(tree)
 
-#converts quantitative variables into qualitative variables
-b_diamond$shape=as.factor(b_diamond$shape)
-b_diamond$cut=as.factor(cut)
-b_diamond$color=as.factor(color)
-b_diamond$clarity=as.factor(clarity)
-b_diamond$report=as.factor(report)
-b_diamond$type=as.factor(type)
-
 # tree method with validation set approach
 # Use set.seed(1) and train=sample() function to create a training set containing half of the observations are selected as the training dataset while half of observations are treated as the test dataset.
 set.seed(1)
