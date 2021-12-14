@@ -8,6 +8,7 @@ library(data.table)
 library(tidyr)
 library(car)       # for VIF() function
 library(stargazer) # for figures # install.packages("stargazer")
+library(tree)
 
 # Read file 
 b_diamond=read.csv("BDiamond.csv", header=T,stringsAsFactors = TRUE)
@@ -102,21 +103,35 @@ stargazer(lm.fit,lm.fit1,lm.fit2, title="Table 2: Multiple Linear Regression Res
 summary(lm.fit)  # RSE: 6946 on 119275 (=0.05823) Adjusted R-squared:  0.4192
 summary(lm.fit2) # RSE: 7243 on 119279 (=0.0607) Adjusted R-squared:  0.3685
 
+
+
 # 2. TREE-BASED METHODS (REGRESSION TREE) ---------------------------------------------------------------------------------------------------------
+# Validation-set approach
+set.seed(1)
+train = sample(1:nrow(b_diamond), nrow(b_diamond)/2)
+# Generate tree with selected predictors 
+tree.diamond=tree(price~shape+carat+cut+color+clarity+report+type,b_diamond,subset=train)
+summary(tree.diamond)
+plot(tree.diamond)
+text(tree.diamond,pretty=0)
+# Variables actually used in tree construction are "carat"   "report"  "clarity"
 
+# Use cross validation to check if the tree needs to be pruned
+cv.diamond=cv.tree(tree.diamond)
+cv.diamond
+plot(cv.diamond$size,cv.diamond$dev,type='b')
+# The best tree size is 10, so we don't need to prune the tree
 
+# Use unpruned tree to make prediction on the test data
+yhat.tree=predict(tree.diamond,newdata=b_diamond[-train,])
 
-
-
-
-
-
-
-
-
-
-
-
+# True value of DV on the test data
+diamond.test=b_diamond[-train,"price"]
+# Plot predicted price against actual price
+plot(yhat.tree,diamond.test)
+abline(0,1)
+#MSE (Mean of Squared Errors)
+mean((yhat.tree-diamond.test)^2)
 
 
 
