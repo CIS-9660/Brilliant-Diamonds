@@ -1,22 +1,27 @@
+# The tree library is used to construct Regression Decision Tree
 library(tree)
-Diamond=read.csv('BDiamond.csv',header=T,na.strings="?")
-Diamond=na.omit(Diamond)
-nrow(Diamond)
-names(Diamond)
-attach(Diamond)
+# header=T tells R that the first line of the file contains the variable names; na.strings tell R
+# that any time it sees a particular character or set of characters (such as a question mark), it should be treated as a missing element of the data matrix.
+b_diamond=read.csv('BDiamond.csv',header=T,na.strings="?")
+#na.omit: removes the rows contain missing observations
+b_diamond=na.omit(b_diamond)
+#nrow: find out number of rows in data.
+nrow(b_diamond)
+names(b_diamond)
+attach(b_diamond)
 
-
-Diamond$shape=as.factor(Diamond$shape)
-Diamond$cut=as.factor(cut)
-Diamond$color=as.factor(color)
-Diamond$clarity=as.factor(clarity)
-Diamond$report=as.factor(report)
-Diamond$type=as.factor(type)
+#converts quantitative variables into qualitative variables
+b_diamond$shape=as.factor(b_diamond$shape)
+b_diamond$cut=as.factor(cut)
+b_diamond$color=as.factor(color)
+b_diamond$clarity=as.factor(clarity)
+b_diamond$report=as.factor(report)
+b_diamond$type=as.factor(type)
 
 # tree method with validation set approach
 set.seed(1)
-train = sample(1:nrow(Diamond), nrow(Diamond)/2)
-tree.diamond=tree(price~shape+carat+cut+color+clarity+report+type,Diamond,subset=train)
+train = sample(1:nrow(b_diamond), nrow(b_diamond)/2)
+tree.diamond=tree(price~shape+carat+cut+color+clarity+report+type,b_diamond,subset=train)
 summary(tree.diamond)
 plot(tree.diamond)
 text(tree.diamond,pretty=0)
@@ -28,13 +33,13 @@ cv.diamond
 plot(cv.diamond$size,cv.diamond$dev,type='b')
 # the best tree size is 10, so we don't need to prune the tree
 
-# use unpruned tree to make prediction on the test data
-yhat=predict(tree.diamond,newdata=Diamond[-train,])
 
+# use unpruned tree to make prediction on the test data
+yhat=predict(tree.diamond,newdata=b_diamond[-train,])
 
 
 # true value of DV on the test data
-diamond.test=Diamond[-train,"price"]
+diamond.test=b_diamond[-train,"price"]
 plot(yhat,diamond.test)
 abline(0,1)
 #MSE (Mean of Squared Errors)
