@@ -118,6 +118,7 @@ tree.diamond=tree(price~shape+carat+cut+color+clarity+report+type,b_diamond,subs
 # Use the summary () function to produce summary statistics about the tree.
 summary(tree.diamond)
 # Use the plot() function to display the tree structure,and then use the text() function to display the node labels
+par(mfrow=c(1,1))
 plot(tree.diamond)
 text(tree.diamond,pretty=0)
 # variables actually used in tree construction are "carat"   "report"  "clarity"
