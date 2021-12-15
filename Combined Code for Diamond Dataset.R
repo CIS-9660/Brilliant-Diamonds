@@ -9,6 +9,7 @@ library(data.table)
 library(tidyr)
 library(car)       # for VIF() function
 library(stargazer) # for figures # install.packages("stargazer")
+library(tree)
 library(randomForest)
 library(gbm)
 
@@ -107,9 +108,6 @@ summary(lm.fit)  # RSE: 6946 on 119275 (=0.05823) Adjusted R-squared:  0.4192
 summary(lm.fit2) # RSE: 7243 on 119279 (=0.0607) Adjusted R-squared:  0.3685
 
 # 2. TREE-BASED METHODS (REGRESSION TREE) ---------------------------------------------------------------------------------------------------------
-
-# The tree library is used to construct Regression Decision Tree
-library(tree)
 
 # tree method with validation set approach
 # Use set.seed(1) and train=sample() function to create a training set containing half of the observations are selected as the training dataset while half of observations are treated as the test dataset.
