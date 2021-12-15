@@ -9,6 +9,9 @@ library(data.table)
 library(tidyr)
 library(car)       # for VIF() function
 library(stargazer) # for figures # install.packages("stargazer")
+library(randomForest)
+library(gbm)
+
 
 # Read file 
 b_diamond=read.csv("BDiamond.csv", header=T,stringsAsFactors = TRUE)
@@ -139,32 +142,6 @@ abline(0,1)
 mean((yhat-diamond.test)^2)
 
 # 3. BAGGING ----------------------------------------------------------------------------------------------------------------------------
-
-#randomforest &  bagging, start by importing the libraries random forest and gbm
-library(dplyr)
-library(data.table)
-library(tidyr)
-library(randomForest)
-library(gbm)
-
-#read csv file
-b_diamond=read.csv("BDiamond.csv", header=T)
-
-#str(b_diamond) do we need this??
-dim(b_diamond)
-names(b_diamond)
-
-#remove all arbitrary columns to ensure cleaner analysis, note that library dplyr is required to use select() function
-b_diamond = select(b_diamond, -url,-id,-date_fetched)
-summary(b_diamond)
-attach(b_diamond)
-lm.fit=lm(price~shape+carat+cut+color+clarity+report+type)
-summary(lm.fit)
-
-#predict(lm.fit,b_diamond, interval="confidence")
-#choosing a p-value of 10%, remove cut because when we compared to other coefficients, it did not seem as significant.
-lm.fit1=update(lm.fit,~.-cut)
-summary(lm.fit1)
 
 #set seed
 set.seed(1)
