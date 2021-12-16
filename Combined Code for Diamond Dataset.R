@@ -140,7 +140,7 @@ abline(0,1)
 #MSE (Mean of Squared Errors)
 mean((yhat-diamond.test)^2)
 
-# 3. BAGGING ----------------------------------------------------------------------------------------------------------------------------
+# 4. BAGGING ----------------------------------------------------------------------------------------------------------------------------
 
 #set seed
 set.seed(1)
@@ -177,7 +177,7 @@ yhat.bag100 = predict(bag.diamond100,newdata=b_diamond[-train,])
 mean((yhat.bag100-diamond.test)^2)
 
 
-#4. RANDOM FOREST ---------------------------------------------------------------------------------------------------------
+#3. RANDOM FOREST ---------------------------------------------------------------------------------------------------------
 
 # The MSE with a smaller number of trees is larger at 23,975,491. Therefore, we will keep the larger number of trees
 # Random Forest
